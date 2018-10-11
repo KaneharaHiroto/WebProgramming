@@ -1,0 +1,23 @@
+.colorred{
+	color:red;
+}
+.right{
+	text-align:right;
+}
+
+.userfile{
+	text-align: center;
+}
+
+.sinki{
+	text-align:right;
+	color:blue;
+}
+
+.left{
+	text-align: left;
+}
+.txt {
+    display: inline-block;
+    text-align: left;
+  }
