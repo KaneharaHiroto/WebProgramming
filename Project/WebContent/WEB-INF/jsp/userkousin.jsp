@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,42 +10,52 @@
 </head>
 <body>
 <div class="alert alert-dark" role="alert">
-  <p class="right">ユーザー名さん　　　
+  <p class="right">${userInfo.name}さん　　　
     <span>
-    	<a  class="colorred"  href="file:///C:/Users/user/Documents/WebProgramming/Mock/WebContent/login_manu.html">ログアウト</a>
+    	<a  class="colorred"  href="Logout">ログアウト</a>
     </span>
   </p>
 </div>
 <div class="container">
 	<h1 class="userfile">ユーザー情報更新</h1>
 	  <div class="txt">
-  <form action="UTF-8" method="post">
+	   <c:if test="${checkerr != null}" >
+		 <div class="alert alert-danger" role="alert">
+	      ${checkerr}
+	    </div>
+	   </c:if>
+	  <c:if test="${Mserr != null}" >
+	   <div class="alert alert-danger" role="alert">
+	    ${Mserr}
+       </div>
+	  </c:if>
+  <form action="koushin" method="post">
+  <input type="hidden" value="${selectlist.id}" name="id">
+  <br>
+  <br>  <p>ログインID　　　　 ${selectlist.login_id}</p>
+  <br>
+  パスワード　　　　<input type="password" name="Password" size="44" maxlength="8">
   <br>
   <br>
-  <p>ログインID　　　　id0001</p>
-  <br>
-  パスワード　　　　<input type="password" name="pass" size="44" maxlength="8">
+  パスワード（確認）<input type="password" name="Passwordc" size="44" maxlength="8">
   <br>
   <br>
-  パスワード（確認）<input type="password" name="pass" size="44" maxlength="8">
+  ユーザー名　　　　<input type="text" name="name" size="44" value=${selectlist.name}><br>
   <br>
   <br>
-  ユーザー名　　　　<input type="text" name="searth" size="44"><br>
-  <br>
-  <br>
-  生年月日　　　　　<input type="date" name="searth" size="44">
+  生年月日　　　　　<input type="date" name="birthDate" size="44" value=${selectlist.birthDate}>
   <br>
   <br>
   <br>
-  </div>
-  	<div class="userfile">
-	<input type="submit" onclick="location.href='file:///C:/Users/user/Documents/WebProgramming/Mock/WebContent/user_top.html'"value="更新">
-	</div>
+  	<span class="userfile">
+	<input type="submit" value="更新">
+	</span>
 		<br>
 		<br>
 	</form>
+	</div>
 	<span class="text-primary" >
-	<a href="file:///C:/Users/user/Documents/WebProgramming/Mock/WebContent/user_top.html">戻る</a>
+	<a href="top">戻る</a>
 	</span>
 	</div>
 </body>

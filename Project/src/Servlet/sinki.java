@@ -1,7 +1,6 @@
 package Servlet;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,15 +14,16 @@ import Dao.UserDao;
 import Model.USER;
 
 /**
- * Servlet implementation class top
+ * Servlet implementation class sinki
  */
-@WebServlet("/top")
-public class top extends HttpServlet {
+@WebServlet("/sinki")
+public class sinki extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public top() {
+    public sinki() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,18 +32,14 @@ public class top extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-		throws ServletException, IOException {
+	throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession ses = request.getSession();
 		if(ses.getAttribute("userInfo")==null) {
 			response.sendRedirect("login");
 			return;
 		}
-		UserDao usdao= new UserDao();
-		List<USER> uslist = usdao.findAll();
-		request.setAttribute("userList", uslist);
-
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user_top.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user_sinki.jsp");
 		dispatcher.forward(request, response);
 	}
 	/**
@@ -52,16 +48,28 @@ public class top extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
+		String birthDate = request.getParameter("birthDate");
+		String Password = request.getParameter("Password");
+		String Passwordc = request.getParameter("Passwordc");
 		String login_id = request.getParameter("login_id");
-		String name =request.getParameter("name");
-		String rowdate = request.getParameter("rowdate");
-		String highdate = request.getParameter("highdate");
+		String name = request.getParameter("name");
 		UserDao userdao=new UserDao();
-		List<USER> uslist= userdao.search(login_id, name, rowdate, highdate);
-		request.setAttribute("userList", uslist);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user_top.jsp");
-		dispatcher.forward(request, response);
+		USER user= userdao.CheckByLoginId(login_id);
+		if(login_id.equals("")||Password.equals("")||name.equals("")||birthDate.equals("")||user!=null) {
+			request.setAttribute("Mserr","入力された内容は正しくありません。");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user_sinki.jsp");
+			dispatcher.forward(request, response);
+			return ;
+		}else if(!Password.equals(Passwordc)) {
 
+			request.setAttribute("checkerr","パスワードが正しくありません。");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/user_sinki.jsp");
+			dispatcher.forward(request, response);
+			return ;
+		}
+		userdao.cruser(login_id, Password, name, birthDate);
 
+		response.sendRedirect("top");
 	}
+
 }

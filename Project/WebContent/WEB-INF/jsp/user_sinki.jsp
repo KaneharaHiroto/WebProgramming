@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,34 +11,44 @@
 <body>
 <div class=userfile>
 	<h1 >ユーザー新規登録</h1>
+	<c:if test="${Mserr != null}" >
+	 <div class="alert alert-danger" role="alert">
+	 ${Mserr}
+	 </div>
+	</c:if>
+	<c:if test="${checkerr != null}" >
+		<div class="alert alert-danger" role="alert">
+		${checkerr}
+		</div>
+	</c:if>
 	<br>
 	<br>
 	<br>
 	<br>
- 	<form action="UTF-8" method="post">
-		ログインID　　　　<input type="text" name="searth" size="44">
+ 	<form class="form_create" action="sinki" method="post">
+		ログインID　　　　<input type="text" name="login_id" size="44">
+		<br>
+	    <br>
+		パスワード　　　　<input type="password" name="Password" size="44" maxlength="8">
 		<br>
 		<br>
-		パスワード　　　　<input type="password" name="pass" size="44" maxlength="8">
+		パスワード（確認）<input type="password" name="Passwordc" size="44" maxlength="8">
 		<br>
 		<br>
-		パスワード（確認）<input type="password" name="pass" size="44" maxlength="8">
+		ユーザー名　　　　<input type="text" name="name" size="44"><br>
 		<br>
 		<br>
-		ユーザー名　　　　<input type="text" name="searth" size="44"><br>
-		<br>
-		<br>
-		生年月日　　　　　<input type="date" name="searth" size="44">
+		生年月日　　　　　<input type="date" name="birthDate" size="44">
 		<br>
 		<br>
 		<br>
-		<input type="submit" onclick="location.href='file:///C:/Users/user/Documents/WebProgramming/Mock/WebContent/user_top.html'"value="登録">
+		<input type="submit" value="登録">
 		<br>
 		<br>
 	</form>
 
 	<span class="text-primary" >
-	<a href="file:///C:/Users/user/Documents/WebProgramming/Mock/WebContent/user_top.html">戻る</a>
+	<a href="top">戻る</a>
 	</span>
 </div>
 

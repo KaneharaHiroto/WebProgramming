@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,19 +12,25 @@
 <div class="userfile">
 	<h1 >ログイン画面</h1>
 	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	ログインID　　　　<input type="text" name="searth" size="30">
-	<br>
-	<br>
-	<br>
-	パスワード　　　　<input type="password" name="pass" size="30" maxlength="8">
-	<br>
-	<br>
-	<br>
-	<input type="submit" onclick="location.href='file:///C:/Users/user/Documents/WebProgramming/Mock/WebContent/user_top.html'"value="ログイン">
+	<c:if test="${errMsg != null}" >
+		<div class="alert alert-danger" role="alert">
+		${errMsg}
+		</div>
+	</c:if>
+	 <br>
+	 <br>
+	 <br>
+	  <form class="form_singin" action="login" method="post">
+	  ログインID　　　　<input type="text" name="login_id" size="30">
+	  <br>
+	  <br>
+	  <br>
+	  パスワード　　　　<input type="password" name="password" size="30" maxlength="8">
+	  <br>
+	  <br>
+	  <br>
+	  <input type="submit" value="ログイン">
+	</form>
 </div>
 </body>
 </html>
